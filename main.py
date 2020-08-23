@@ -726,8 +726,8 @@ bullshit = [
 ]
 
 params = {
-  'access_key': '459e61878d08703f89f0a077e85fef87',
-  'url': 'https://www.npr.org/2020/08/22/905099950/the-worst-is-not-behind-us-california-continues-to-burn'
+  'access_key': '',
+  'url': 'https://www.npr.org/2020/08/23/905082219/convention-gives-trump-a-chance-to-explain-how-hell-make-america-great-again-aga'
 }
 
 api_result = requests.get('http://api.scrapestack.com/scrape', params)
@@ -806,18 +806,18 @@ num_bullshit = 0
 
 for term in subjective:
     num_subjective += story.count(term)
-    story = story.replace(term, "<span style=\"color:blue;\">" + term + "</span>")
+    story = story.replace(term, '\033[0;34m' + term + '\033[0m')
     
 for term in opinion:
     num_opinion += story.count(term)
-    story = story.replace(term, "<span style=\"color:green;\">" + term + "</span>")
+    story = story.replace(term, '\033[0;32m' + term + '\033[0m')
     
 for term in bullshit:
     num_bullshit += story.count(term)
-    story = story.replace(term, "<span style=\"color:red;\">" + term + "</span>")
+    story = story.replace(term, '\033[0;31m' + term + '\033[0m')
 
 for quote in quotes:
     story = story.replace('insertQuote', quote, 1)
 
 print story
-print "Subjective occurences:", num_subjective, " Opinionated occurences:", num_opinion, " Bullshit occurences:", num_bullshit
+print "Subjective occurences:", "\033[0;34m", num_subjective, "\033[0m", " Opinionated occurences:", "\033[0;32m", num_opinion, "\033[0m", " Bullshit occurences:", "\033[0;31m", num_bullshit, "\033[0m"
