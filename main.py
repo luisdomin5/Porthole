@@ -1,95 +1,6 @@
 import requests
 import re
 
-params = {
-  'access_key': '459e61878d08703f89f0a077e85fef87',
-  'url': 'https://www.npr.org/2020/08/22/905099950/the-worst-is-not-behind-us-california-continues-to-burn'
-}
-
-api_result = requests.get('http://api.scrapestack.com/scrape', params)
-website_content = api_result.content
-
-result = re.findall('<p>.+?</p>',website_content)
-story= ""
-story= listToStr = ' '.join([str(elem) for elem in result])
-if (len(story) < 500):
-    result = re.findall('</cite>.+?\.</div></div>',website_content)
-story = listToStr = ' '.join([str(elem) for elem in result])
-story = re.sub('<a href=.+?<em>', '', story)
-story = re.sub('data-cfemail=.+?<em>', '', story)
-story = re.sub('<div class=".+?\"', '', story)
-story = re.sub('data-ad-text=.+?>', '', story)
-story = re.sub('<div data.+?>', '', story)
-story = re.sub('<ul class=.+?>', '', story)
-story = re.sub('"https.+?"', '', story)
-story = re.sub('//.+?"', '', story)
-story = re.sub('data-src.+?"', '', story)
-story = re.sub('data-.+?/script', '', story)
-story = re.sub('data-.+?"', '', story)
-story = re.sub('class=".+?"', '', story)
-story = re.sub('<div id=".+?"', '', story)
-story = re.sub('<div.+?alt=', '', story)
-story = re.sub('click".+?"', '', story)
-story = re.sub('id=.+?>', '', story)
-story = story.replace("<p>", "\n")
-story = story.replace("</p>", "\n")
-story = story.replace("    ", "\n")
-story = story.replace("<h1>", "\n")
-story = story.replace("<h2>", "\n")
-story = story.replace("<h3>", "\n")
-story = story.replace("</h1>", "")
-story = story.replace("</h2>", "")
-story = story.replace("</h3>", "")
-story = story.replace("<strong>", "    ")
-story = story.replace("</strong>", "")
-story = story.replace("</ul> >", "")
-story = story.replace("<span class=", "")
-story = story.replace("<em>", "")
-story = story.replace("</em>", "")
-story = story.replace("</a>", "")
-story = story.replace("</ul", "")
-story = story.replace("&ldquo;", "\"")
-story = story.replace("&rdquo;", "\"")
-story = story.replace("<a href=", "")
-story = story.replace("target=", "")
-story = story.replace("</cite>", "")
-story = story.replace("</div> >", "")
-story = story.replace("</div>", "")
-story = story.replace("</span>=", "")
-story = story.replace("<span>=", "")
-story = story.replace("</span>", "")
-story = story.replace("<span>", "")
-story = story.replace("\"_blank\"", "")
-story = story.replace("\">", "\"")
-story = story.replace(">", "")
-story = story.replace("\"\"", "")
-
-
-
-
-quotes = []
-point = 0
-while (point < (len(story)-1)):
-    start = story.find('"', point)
-    end = (story.find('"', start + 1) + 1)
-    if (start == -1):
-        break
-    quotes.append(story[start : end])
-    point = end + 1
-
-story = re.sub('".+?"', 'insertQuote', story)
-
-
-
-#when finished modifying unQuoted, replace each "insertQuote" in story with each element in the list of quotes
-
-
-
-
-num_subjective = 0
-num_opinion = 0
-num_bullshit = 0
-
 subjective = [
     'obvious',
     'certain',
@@ -246,7 +157,7 @@ subjective = [
 ]
 
 opinion = [
-    'I',
+    ' I ',
     'I think',
     'I believe',
     'I feel',
@@ -303,7 +214,7 @@ opinion = [
 bullshit = [
     '10x',
     '24/7',
-    'ai',
+    ' ai ',
     'agile',
     'ambassador',
     'artificial intelligence',
@@ -814,7 +725,99 @@ bullshit = [
     'zenith'
 ]
 
+params = {
+  'access_key': '459e61878d08703f89f0a077e85fef87',
+  'url': 'https://www.npr.org/2020/08/22/905099950/the-worst-is-not-behind-us-california-continues-to-burn'
+}
+
+api_result = requests.get('http://api.scrapestack.com/scrape', params)
+website_content = api_result.content
+
+result = re.findall('<p>.+?</p>',website_content)
+story= ""
+story= listToStr = ' '.join([str(elem) for elem in result])
+if (len(story) < 500):
+    result = re.findall('</cite>.+?\.</div></div>',website_content)
+story = listToStr = ' '.join([str(elem) for elem in result])
+story = re.sub('<a href=.+?<em>', '', story)
+story = re.sub('data-cfemail=.+?<em>', '', story)
+story = re.sub('<div class=".+?\"', '', story)
+story = re.sub('data-ad-text=.+?>', '', story)
+story = re.sub('<div data.+?>', '', story)
+story = re.sub('<ul class=.+?>', '', story)
+story = re.sub('"https.+?"', '', story)
+story = re.sub('//.+?"', '', story)
+story = re.sub('data-src.+?"', '', story)
+story = re.sub('data-.+?/script', '', story)
+story = re.sub('data-.+?"', '', story)
+story = re.sub('class=".+?"', '', story)
+story = re.sub('<div id=".+?"', '', story)
+story = re.sub('<div.+?alt=', '', story)
+story = re.sub('click".+?"', '', story)
+story = re.sub('id=.+?>', '', story)
+story = story.replace("<p>", "\n")
+story = story.replace("</p>", "\n")
+story = story.replace("    ", "\n")
+story = story.replace("<h1>", "\n")
+story = story.replace("<h2>", "\n")
+story = story.replace("<h3>", "\n")
+story = story.replace("</h1>", "")
+story = story.replace("</h2>", "")
+story = story.replace("</h3>", "")
+story = story.replace("<strong>", "    ")
+story = story.replace("</strong>", "")
+story = story.replace("</ul> >", "")
+story = story.replace("<span class=", "")
+story = story.replace("<em>", "")
+story = story.replace("</em>", "")
+story = story.replace("</a>", "")
+story = story.replace("</ul", "")
+story = story.replace("&ldquo;", "\"")
+story = story.replace("&rdquo;", "\"")
+story = story.replace("<a href=", "")
+story = story.replace("target=", "")
+story = story.replace("</cite>", "")
+story = story.replace("</div> >", "")
+story = story.replace("</div>", "")
+story = story.replace("</span>=", "")
+story = story.replace("<span>=", "")
+story = story.replace("</span>", "")
+story = story.replace("<span>", "")
+story = story.replace("\"_blank\"", "")
+story = story.replace("\">", "\"")
+story = story.replace(">", "")
+story = story.replace("\"\"", "")
+
+quotes = []
+point = 0
+while (point < (len(story)-1)):
+    start = story.find('"', point)
+    end = (story.find('"', start + 1) + 1)
+    if (start == -1):
+        break
+    quotes.append(story[start : end])
+    point = end + 1
+
+story = re.sub('".+?"', 'insertQuote', story)
+
+num_subjective = 0
+num_opinion = 0
+num_bullshit = 0
+
+for term in subjective:
+    num_subjective += story.count(term)
+    story = story.replace(term, "<span style=\"color:blue;\">" + term + "</span>")
+    
+for term in opinion:
+    num_opinion += story.count(term)
+    story = story.replace(term, "<span style=\"color:green;\">" + term + "</span>")
+    
+for term in bullshit:
+    num_bullshit += story.count(term)
+    story = story.replace(term, "<span style=\"color:red;\">" + term + "</span>")
+
+for quote in quotes:
+    story = story.replace('insertQuote', quote, 1)
+
 print story
-print quotes
-
-
+print "Subjective occurences:", num_subjective, " Opinionated occurences:", num_opinion, " Bullshit occurences:", num_bullshit
