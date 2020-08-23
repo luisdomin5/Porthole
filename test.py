@@ -1,2 +1,0 @@
-egg = ""
-print len(egg)
