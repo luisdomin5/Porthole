@@ -1,0 +1,2 @@
+egg = ""
+print len(egg)
