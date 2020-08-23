@@ -725,8 +725,13 @@ bullshit = [
     'zenith'
 ]
 
+keyf = open("key.txt","r")
+key = keyf.read()
+keyf.close()
+key = key.strip()
+
 params = {
-  'access_key': '',
+  'access_key': key,
   'url': 'https://www.npr.org/2020/08/23/905082219/convention-gives-trump-a-chance-to-explain-how-hell-make-america-great-again-aga'
 }
 
