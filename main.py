@@ -64,6 +64,32 @@ story = story.replace("\">", "\"")
 story = story.replace(">", "")
 story = story.replace("\"\"", "")
 
+
+
+
+quotes = []
+point = 0
+while (point < (len(story)-1)):
+    start = story.find('"', point)
+    end = (story.find('"', start + 1) + 1)
+    if (start == -1):
+        break
+    quotes.append(story[start : end])
+    point = end + 1
+
+story = re.sub('".+?"', 'insertQuote', story)
+
+
+
+#when finished modifying unQuoted, replace each "insertQuote" in story with each element in the list of quotes
+
+
+
+
+num_subjective = 0
+num_opinion = 0
+num_bullshit = 0
+
 subjective = [
     'obvious',
     'certain',
@@ -236,7 +262,7 @@ opinion = [
     'The best',
     'I strongly believe',
     'From my point of view',
-    'It’s my belief',
+    'It\'s my belief',
     'Based on what I know',
     'I am convinced',
     'Speaking for myself',
@@ -789,3 +815,6 @@ bullshit = [
 ]
 
 print story
+print quotes
+
+
