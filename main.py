@@ -10,59 +10,269 @@ api_result = requests.get('http://api.scrapestack.com/scrape', params)
 website_content = api_result.content
 
 result = re.findall('<p>.+?</p>',website_content)
-test = ""
-test = listToStr = ' '.join([str(elem) for elem in result])
-if (len(test) < 500):
+story= ""
+story= listToStr = ' '.join([str(elem) for elem in result])
+if (len(story) < 500):
     result = re.findall('</cite>.+?\.</div></div>',website_content)
-test = listToStr = ' '.join([str(elem) for elem in result])
-test = re.sub('<a href=.+?<em>', '', test)
-test = re.sub('data-cfemail=.+?<em>', '', test)
-test = re.sub('<div class=".+?\"', '', test)
-test = re.sub('data-ad-text=.+?>', '', test)
-test = re.sub('<div data.+?>', '', test)
-test = re.sub('<ul class=.+?>', '', test)
-test = re.sub('"https.+?"', '', test)
-test = re.sub('//.+?"', '', test)
-test = re.sub('data-src.+?"', '', test)
-test = re.sub('data-.+?/script', '', test)
-test = re.sub('data-.+?"', '', test)
-test = re.sub('class=".+?"', '', test)
-test = re.sub('<div id=".+?"', '', test)
-test = re.sub('<div.+?alt=', '', test)
-test = re.sub('click".+?"', '', test)
-test = re.sub('id=.+?>', '', test)
-test = test.replace("<p>", "\n")
-test = test.replace("</p>", "\n")
-test = test.replace("    ", "\n")
-test = test.replace("<h1>", "\n")
-test = test.replace("<h2>", "\n")
-test = test.replace("<h3>", "\n")
-test = test.replace("</h1>", "")
-test = test.replace("</h2>", "")
-test = test.replace("</h3>", "")
-test = test.replace("<strong>", "    ")
-test = test.replace("</strong>", "")
-test = test.replace("</ul> >", "")
-test = test.replace("<span class=", "")
-test = test.replace("<em>", "")
-test = test.replace("</em>", "")
-test = test.replace("</a>", "")
-test = test.replace("</ul", "")
-test = test.replace("&ldquo;", "\"")
-test = test.replace("&rdquo;", "\"")
-test = test.replace("<a href=", "")
-test = test.replace("target=", "")
-test = test.replace("</cite>", "")
-test = test.replace("</div> >", "")
-test = test.replace("</div>", "")
-test = test.replace("</span>=", "")
-test = test.replace("<span>=", "")
-test = test.replace("</span>", "")
-test = test.replace("<span>", "")
-test = test.replace("\"_blank\"", "")
-test = test.replace("\">", "\"")
-test = test.replace(">", "")
-test = test.replace("\"\"", "")
+story = listToStr = ' '.join([str(elem) for elem in result])
+story = re.sub('<a href=.+?<em>', '', story)
+story = re.sub('data-cfemail=.+?<em>', '', story)
+story = re.sub('<div class=".+?\"', '', story)
+story = re.sub('data-ad-text=.+?>', '', story)
+story = re.sub('<div data.+?>', '', story)
+story = re.sub('<ul class=.+?>', '', story)
+story = re.sub('"https.+?"', '', story)
+story = re.sub('//.+?"', '', story)
+story = re.sub('data-src.+?"', '', story)
+story = re.sub('data-.+?/script', '', story)
+story = re.sub('data-.+?"', '', story)
+story = re.sub('class=".+?"', '', story)
+story = re.sub('<div id=".+?"', '', story)
+story = re.sub('<div.+?alt=', '', story)
+story = re.sub('click".+?"', '', story)
+story = re.sub('id=.+?>', '', story)
+story = story.replace("<p>", "\n")
+story = story.replace("</p>", "\n")
+story = story.replace("    ", "\n")
+story = story.replace("<h1>", "\n")
+story = story.replace("<h2>", "\n")
+story = story.replace("<h3>", "\n")
+story = story.replace("</h1>", "")
+story = story.replace("</h2>", "")
+story = story.replace("</h3>", "")
+story = story.replace("<strong>", "    ")
+story = story.replace("</strong>", "")
+story = story.replace("</ul> >", "")
+story = story.replace("<span class=", "")
+story = story.replace("<em>", "")
+story = story.replace("</em>", "")
+story = story.replace("</a>", "")
+story = story.replace("</ul", "")
+story = story.replace("&ldquo;", "\"")
+story = story.replace("&rdquo;", "\"")
+story = story.replace("<a href=", "")
+story = story.replace("target=", "")
+story = story.replace("</cite>", "")
+story = story.replace("</div> >", "")
+story = story.replace("</div>", "")
+story = story.replace("</span>=", "")
+story = story.replace("<span>=", "")
+story = story.replace("</span>", "")
+story = story.replace("<span>", "")
+story = story.replace("\"_blank\"", "")
+story = story.replace("\">", "\"")
+story = story.replace(">", "")
+story = story.replace("\"\"", "")
+
+subjective = [
+    'obvious',
+    'certain',
+    'abundant',
+    'billions',
+    'enough',
+    'few',
+    'full',
+    'hundreds',
+    'incalculable',
+    'limited',
+    'generally'
+    'little',
+    'many',
+    'most',
+    'millions',
+    'numerous',
+    'scarce',
+    'some',
+    'sparse',
+    'substantial',
+    'thousands',
+    'big',
+    'colossal',
+    'fat',
+    'gigantic',
+    'great',
+    'huge',
+    'large',
+    'little',
+    'mammoth',
+    'massive',
+    'microscopic',
+    'miniature',
+    'petite',
+    'puny',
+    'scrawny',
+    'short',
+    'small',
+    'tall',
+    'teeny',
+    'tiny',
+    'ancient',
+    'brief',
+    'early',
+    'fast',
+    'future',
+    'late',
+    'long',
+    'modern',
+    'old',
+    'old-fashioned',
+    'prehistoric',
+    'quick',
+    'rapid',
+    'short',
+    'slow',
+    'swift',
+    'young',
+    'wrong',
+    'vast',
+    'uninterested',
+    'unimportant',
+    'tender',
+    'shy',
+    'rich',
+    'powerful',
+    'poor',
+    'poorly',
+    'odd',
+    'mushy',
+    'mealy',
+    'inexpensive',
+    'important',
+    'helpful',
+    'hallowed',
+    'gifted',
+    'famous',
+    'easy',
+    'clever',
+    'better',
+    'aggressive',
+    'zealous',
+    'angry',
+    'bewildered',
+    'clumsy',
+    'agreeable',
+    'ambitious',
+    'brave',
+    'calm',
+    'delightful',
+    'eager',
+    'faithful',
+    'gentle',
+    'happy',
+    'jolly',
+    'kind',
+    'lively',
+    'nice',
+    'obedient',
+    'polite',
+    'proud',
+    'silly',
+    'thankful',
+    'victorious',
+    'witty',
+    'wonderful',
+    'unsightly',
+    'unkempt',
+    'ugly',
+    'stocky',
+    'skinny',
+    'short',
+    'shapely',
+    'scruffy',
+    'quaint',
+    'plump',
+    'plain',
+    'muscular',
+    'magnificent',
+    'long',
+    'handsome',
+    'gorgeous',
+    'glamorous',
+    'flabby',
+    'fit',
+    'fancy',
+    'elegant',
+    'drab',
+    'dazzling',
+    'clean',
+    'chubby',
+    'beautiful',
+    'bald',
+    'attractive',
+    'worried',
+    'uptight',
+    'thoughtless',
+    'scary',
+    'repulsive',
+    'pitiful',
+    'panicky',
+    'obnoxious',
+    'nervous',
+    'mysterious',
+    'lazy',
+    'jealous',
+    'itchy',
+    'helpless',
+    'grumpy',
+    'fierce',
+    'embarrassed',
+    'defeated'
+]
+
+opinion = [
+    'I',
+    'I think',
+    'I believe',
+    'I feel',
+    'I guess',
+    'I agree',
+    'I disagree',
+    'Personally',
+    'My impression',
+    'In my opinion',
+    'In my view',
+    'In my eyes',
+    'My favorite',
+    'The best',
+    'I strongly believe',
+    'From my point of view',
+    'It’s my belief',
+    'Based on what I know',
+    'I am convinced',
+    'Speaking for myself',
+    'I know you will have to agree',
+    'I am confident',
+    'It seems to me',
+    'In my opinion',
+    'I am of the opinion',
+    'I take the view',
+    'My personal view is that',
+    'In my experience',
+    'As far as I',
+    'As I see it',
+    'As far as I know',
+    'I might be wrong',
+    'I am not mistaken',
+    'It is claimed that',
+    'I must admit that',
+    'I cannot deny that',
+    'I can imagine that',
+    'I think',
+    'I believe',
+    'I suppose',
+    'Personally, I think',
+    'That is why I think',
+    'I am sure',
+    'I am certain',
+    'I am convinced',
+    'I am not certain',
+    'I am not sure',
+    'I am not convinced',
+    'I have read that',
+    'I am of mixed opinions',
+    'I am of mixed opinions',
+    'I have no opinion in this matter'
+]
 
 bullshit = [
     '10x',
@@ -73,11 +283,12 @@ bullshit = [
     'artificial intelligence',
     'at (your|their) fingertips?',
     'autonomous',
-    'a[-/]b testing',
+    'a[-/]b storying',
     'acquisition',
     'action items?',
     'act in time',
     'advantages?',
+    'agents?',
     'aggregat(e|ion)',
     'accelerate',
     'all.in.one',
@@ -577,9 +788,4 @@ bullshit = [
     'zenith'
 ]
 
-
-
-
-print test
-    
-#print(website_content)
+print story
