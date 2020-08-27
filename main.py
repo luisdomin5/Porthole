@@ -725,25 +725,15 @@ bullshit = [
     'zenith'
 ]
 
-keyf = open("key.txt","r")
-key = keyf.read()
-keyf.close()
-key = key.strip()
+storyRaw = open("story.txt","r")
+story = storyRaw.read()
+storyRaw.close()
+story = story.strip()
 
-params = {
-  'access_key': key,
-  'url': 'https://www.npr.org/2020/08/23/905082219/convention-gives-trump-a-chance-to-explain-how-hell-make-america-great-again-aga'
-}
-
-api_result = requests.get('http://api.scrapestack.com/scrape', params)
-website_content = api_result.content
-
-result = re.findall('<p>.+?</p>',website_content)
-story= ""
-story= listToStr = ' '.join([str(elem) for elem in result])
+story = re.findall('<p>.+?</p>',story)
+story= listToStr = ' '.join([str(elem) for elem in story])
 if (len(story) < 500):
-    result = re.findall('</cite>.+?\.</div></div>',website_content)
-story = listToStr = ' '.join([str(elem) for elem in result])
+    story = re.findall('</cite>.+?\.</div></div>',story)
 story = re.sub('<a href=.+?<em>', '', story)
 story = re.sub('data-cfemail=.+?<em>', '', story)
 story = re.sub('<div class=".+?\"', '', story)
