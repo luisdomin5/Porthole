@@ -6,6 +6,6 @@ Porthole will eventually be deployed on the web for use as an article parser for
 
 You may wonder why I didn't use a cli app such as html2text to start from. Unfortunately it is hard to pick out consistent symbols to determine the bounds of the actual article content from that of the entire page, whereas html tags supply patterns that can be isolated programmatically. Considering how I only want to print the actual article content, and that I need to scan the content for patterns and phrases, it may be better curated in this format.
 
-Requires insertion of a key from the Scrapestack API, (until deployed for web/server) as well as a desired URL to an article.  
+Requires installation of httpie, (until deployed for web/server) as well as a desired URL to an article.  
 
 Only tested with articles from NPR and Reuters so far.
