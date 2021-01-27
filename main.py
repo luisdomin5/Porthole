@@ -814,5 +814,5 @@ for term in bullshit:
 for quote in quotes:
     story = story.replace('insertQuote', quote, 1)
 
-print story
-print "Subjective occurences:", "\033[0;34m", num_subjective, "\033[0m", " Opinionated occurences:", "\033[0;32m", num_opinion, "\033[0m", " Bullshit occurences:", "\033[0;31m", num_bullshit, "\033[0m"
+print(story)
+print ("Subjective occurences:", "\033[0;34m", num_subjective, "\033[0m", " Opinionated occurences:", "\033[0;32m", num_opinion, "\033[0m", " Bullshit occurences:", "\033[0;31m", num_bullshit, "\033[0m")
